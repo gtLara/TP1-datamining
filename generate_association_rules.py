@@ -1,21 +1,12 @@
-import pyfpgrowth
+import pandas as pd
+import numpy as np
+from mlxtend.frequent_patterns import fpgrowth, association_rules
 
-# Frequent itemsets obtained from FP-Growth (example)
-patterns = {
-    ('1', '2'): 3,
-    ('2', '3'): 4,
-    ('1', '3'): 3,
-    ('2', '4'): 3,
-    ('3', '4'): 3,
-}
+# Your binary matrix (example)
+binary_matrix = pd.DataFrame(np.load("binary_matrix.npy"))
 
-# Define a minimum confidence threshold (adjust as needed)
-min_confidence = 0.1
+frequent_itemset_table = fpgrowth(binary_matrix, min_support=0.005)
 
-# Generate association rules
-rules = pyfpgrowth.generate_association_rules(patterns, min_confidence)
+association_rules = association_rules(frequent_itemset_table)
 
-# Print association rules
-for rule, confidence in rules.items():
-    antecedent, consequent = rule
-    print(f"Rule: {antecedent} -> {consequent}, Confidence: {confidence:.2f}")
+association_rules.to_csv("association_rules.csv")

@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 
+
 def validate_rules(binary_matrix, rules_df):
     """
     Validate a set of association rules with antecedents and consequents using a single test dataset.
@@ -51,4 +52,4 @@ rules = pd.read_csv("association_rules.csv")
 accuracy = validate_rules(test_matrix,
                           rules)
 
-print(f"Accuracy: {accuracy:.2f}")
+print(f"Accuracy: {accuracy:.4f}")
